@@ -52,6 +52,11 @@ function UserRoutes(app) {
     res.json(200);
   };
   const account = async (req, res) => {
+    if (req.session['currentUser'] == null) {
+      res.status(403).json(
+        { message: "Not logged in" });
+      return;
+    }
     res.json(req.session['currentUser']);
   };
   app.post("/api/users", createUser);
